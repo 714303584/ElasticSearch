@@ -40,13 +40,18 @@ public class ElasticSearchPersistence implements IDataPersistence<JsonObject> {
 	public boolean insert(JsonObject t) {
 		try {
 			IndexResponse response = null;
+			String index = t.getString(INDEX);
+			String type = t.getString(TYPE);
+			t.remove(INDEX);
+			t.remove(TYPE);
+			
 			if(t.containsKey(UUID)){
-				response = searchClient.prepareIndex(t.getString(INDEX), 
-						t.getString(TYPE),t.getString(UUID))
+				response = searchClient.prepareIndex(index,
+						type,t.getString(UUID))
 						.setSource(t.toString()).get();
 			}else{
-				response = searchClient.prepareIndex(t.getString(INDEX), 
-						t.getString(TYPE))
+				response = searchClient.prepareIndex(index, 
+						type)
 						.setSource(t.toString()).get();
 			}
 			return  response.status() == RestStatus.CREATED;
