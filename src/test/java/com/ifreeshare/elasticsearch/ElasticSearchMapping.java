@@ -41,7 +41,30 @@ public class ElasticSearchMapping {
 //		
 //		System.err.println(System.currentTimeMillis()  - current);
 		
-		getHTMLMapping();
+//		getHTMLMapping();
+//		getImageResouceMapping();
+		getImageMapping();
+		
+	}
+	
+	
+	
+	public static void getImageResouceMapping(){
+		
+		JsonObject imageMapJson = new JsonObject();
+		JsonObject _all = new JsonObject();
+		_all.put("analyzer", "ik_max_word");
+		_all.put("search_analyzer", "ik_max_word");
+		JsonObject properties = new JsonObject();
+		imageMapJson.put("_all", _all);
+		imageMapJson.put("properties", properties);
+		
+		properties.put("keywords", getField("keywords", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("description", getField("description", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("title", getField("title", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("path", getField("path", keyword, true));
+		properties.put("create_date", getField("create_date", Longs, true));
+		System.out.println(imageMapJson.encodePrettily());
 		
 	}
 	
@@ -69,8 +92,6 @@ public class ElasticSearchMapping {
 		properties.put("keywords", getField("keywords", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
 		
 		System.out.println(imageMapJson.encodePrettily());
-		
-		
 		
 	}
 	
