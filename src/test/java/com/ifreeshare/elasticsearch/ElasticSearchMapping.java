@@ -43,9 +43,32 @@ public class ElasticSearchMapping {
 		
 //		getHTMLMapping();
 //		getImageResouceMapping();
-		getImageMapping();
+//		getImageMapping();
+		getClassificationMapping();
 		
 	}
+	
+	
+	public static void getClassificationMapping(){
+		
+		JsonObject imageMapJson = new JsonObject();
+		JsonObject _all = new JsonObject();
+		_all.put("analyzer", "ik_max_word");
+		_all.put("search_analyzer", "ik_max_word");
+		JsonObject properties = new JsonObject();
+		imageMapJson.put("_all", _all);
+		imageMapJson.put("properties", properties);
+
+		properties.put("name", getField("name", keyword, true));
+		properties.put("alias", getField("alias", keyword, true));
+		properties.put("parent", getField("parent", keyword, true));
+		properties.put("keywords", getField("keywords", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("tags", getField("tags", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("description", getField("description", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		System.out.println(imageMapJson.encodePrettily());
+		
+	}
+	
 	
 	
 	
@@ -98,7 +121,21 @@ public class ElasticSearchMapping {
 	
 	
 	
+	/**
+	 * put /url/_mapping/image  update !
+	 * {
+   "properties" : {
+    "enkeywords" : {
+      "type" : "text",
+      "index" : true,
+      "analyzer" : "ik_max_word",
+      "search_analyzer" : "ik_max_word"
+    }
+  }
+}
 
+	 * 
+	 */
 public static void getImageMapping(){
 	
 	JsonObject imageMapJson = new JsonObject();
