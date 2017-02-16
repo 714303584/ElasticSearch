@@ -2,6 +2,8 @@ package com.ifreeshare.persistence;
 
 import java.util.Map;
 
+import org.elasticsearch.client.transport.TransportClient;
+
 import com.ifreeshare.persistence.elasticsearch.ElasticSearchSearch;
 
 /**
@@ -17,12 +19,12 @@ public interface IDataSearch<T> {
 	}
 	
 	
-	
 	public T fullTextSearch(String index,String type, Map<String,String> search);
 	
 	public T getValueById(String index,String type, String id);
 	
 	
+	public TransportClient getSearchClient();
 	
 	
 	
@@ -32,11 +34,11 @@ public interface IDataSearch<T> {
 		/**
 		 * The user queries for equal data
 		 */
-		Equal,
+		Term,
 		/**
 		 * For full-text search
 		 */
-		Search,
+		Match,
 		/**
 		 * User query interval
 		 */

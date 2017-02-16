@@ -16,6 +16,7 @@ import com.ifreeshare.persistence.IDataSearch;
 
 public class ElasticSearchSearch implements IDataSearch<JsonObject> {
 	TransportClient searchClient;
+
 	public ElasticSearchSearch() {
 		try {
 //			Settings settings = Settings.builder().put("cluster.name","elasticsearch").put("client.transport.sniff", true).build();
@@ -37,9 +38,18 @@ public class ElasticSearchSearch implements IDataSearch<JsonObject> {
 	 	if(source == null){
 	 		return null;
 	 	}else{
-	 		return new JsonObject(source);
+	 		return new JsonObject(source).put("id", id);
 	 	}
 	}
+	
+	
+	public TransportClient getSearchClient() {
+		return searchClient;
+	}
+	public void setSearchClient(TransportClient searchClient) {
+		this.searchClient = searchClient;
+	}
+	
 	
 
 }

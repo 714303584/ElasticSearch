@@ -50,7 +50,6 @@ public class ElasticSearchMapping {
 	
 	
 	public static void getClassificationMapping(){
-		
 		JsonObject imageMapJson = new JsonObject();
 		JsonObject _all = new JsonObject();
 		_all.put("analyzer", "ik_max_word");
@@ -85,6 +84,7 @@ public class ElasticSearchMapping {
 		properties.put("keywords", getField("keywords", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
 		properties.put("description", getField("description", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
 		properties.put("title", getField("title", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("tags", getField("tags", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
 		properties.put("path", getField("path", keyword, true));
 		properties.put("create_date", getField("create_date", Longs, true));
 		System.out.println(imageMapJson.encodePrettily());
