@@ -44,9 +44,33 @@ public class ElasticSearchMapping {
 //		getHTMLMapping();
 //		getImageResouceMapping();
 //		getImageMapping();
-		getClassificationMapping();
+//		getClassificationMapping();
+		
+		getTags();
 		
 	}
+	
+	public static void getTags(){
+		JsonObject imageMapJson = new JsonObject();
+		JsonObject _all = new JsonObject();
+		_all.put("analyzer", "ik_max_word");
+		_all.put("search_analyzer", "ik_max_word");
+		JsonObject properties = new JsonObject();
+		imageMapJson.put("_all", _all);
+		imageMapJson.put("properties", properties);
+		
+		properties.put("cnkeywords", getField("cnkeywords", keyword, true));
+		properties.put("enkeywords", getField("enkeywords", keyword, true));
+		properties.put("tag", getField("tag", keyword, true));
+		properties.put("keywords", getField("keywords", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("description", getField("description", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("title", getField("title", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("status", getField("status", Longs, true));
+		
+		System.out.println(imageMapJson.encodePrettily());
+	}
+	
+	
 	
 	
 	public static void getClassificationMapping(){
@@ -133,6 +157,8 @@ public class ElasticSearchMapping {
     }
   }
 }
+
+		add ---		tags
 
 	 * 
 	 */
