@@ -57,8 +57,10 @@ public class ElasticSearchMapping {
 		_all.put("search_analyzer", "ik_max_word");
 		JsonObject properties = new JsonObject();
 		imageMapJson.put("_all", _all);
-		imageMapJson.put("properties", properties);
 		
+		imageMapJson.put("properties", properties);
+		properties.put("name", getField("name", keyword, true));
+		properties.put("parent", getField("parent", keyword, true));
 		properties.put("cnkeywords", getField("cnkeywords", keyword, true));
 		properties.put("enkeywords", getField("enkeywords", keyword, true));
 		properties.put("tag", getField("tag", keyword, true));
