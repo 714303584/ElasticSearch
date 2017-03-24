@@ -7,9 +7,13 @@ import java.net.UnknownHostException;
 import java.util.Map;
 
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import com.ifreeshare.persistence.IDataSearch;
@@ -49,6 +53,20 @@ public class ElasticSearchSearch implements IDataSearch<JsonObject> {
 	public void setSearchClient(TransportClient searchClient) {
 		this.searchClient = searchClient;
 	}
+	
+	
+	
+	@Override
+	public JsonObject pages(String index, String type, int pageIndex, int pageSize, QueryBuilder queryBuilder) {
+		SearchRequestBuilder srb = searchClient.prepareSearch(index).setTypes(type);
+		int pageFrom =  pageIndex*pageSize;
+		SearchResponse searchResponse = srb.setQuery(queryBuilder).setFrom(pageFrom).setSize(pageSize).get();
+		SearchHits sh = searchResponse.getHits();
+		long totalCount = sh.getTotalHits();
+		
+		return null;
+	}
+	
 	
 	
 
