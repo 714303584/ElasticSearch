@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.elasticsearch.common.Nullable;
-import com.koolearn.framework.search.declare.MySearchOption.SearchLogic;
+import com.ifreeshare.elasticsearch.MySearchOption.SearchLogic;
 
 /*new Object[] { "TESTNAME1,TESTNAME2"}会识别为一个搜索条件*/
 /*new Object[] { "TESTNAME1","TESTNAME2"}会识别为两个搜索条件*/
