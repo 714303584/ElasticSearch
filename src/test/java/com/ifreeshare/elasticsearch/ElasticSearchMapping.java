@@ -46,7 +46,32 @@ public class ElasticSearchMapping {
 //		getImageMapping();
 //		getClassificationMapping();
 		
-		getTags();
+//		getTags();
+		getTorrentMap();
+	}
+	
+	
+	public static void getTorrentMap(){
+		
+		JsonObject imageMapJson = new JsonObject();
+		JsonObject _all = new JsonObject();
+		_all.put("analyzer", "ik_max_word");
+		_all.put("search_analyzer", "ik_max_word");
+		JsonObject properties = new JsonObject();
+		imageMapJson.put("_all", _all);
+		
+		imageMapJson.put("properties", properties);
+		
+		properties.put("name", getField("name", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("type", getField("type", text, true).put("analyzer", "ik_max_word").put("search_analyzer", "ik_max_word"));
+		properties.put("info_hash", getField("name", keyword, true));
+		properties.put("subfiles", getField("subfiles", text, true));
+		properties.put("hot", getField("hot", Longs, true));
+		properties.put("fileSize", getField("fileSize", Longs, true));
+		
+		System.out.println(imageMapJson.encodePrettily());
+		
+		
 		
 	}
 	
